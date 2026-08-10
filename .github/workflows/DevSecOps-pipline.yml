@@ -1,0 +1,19 @@
+name: DevSecOps pipline
+
+on:
+    workflow_dispatch:
+
+jobs:
+    # CI
+    code_quality:
+        uses: ./.github/workflows/code_quality.yml
+    secret-scan:
+        uses: ./.github/workflows/secrete_scan.yml
+        secrets: inherit
+
+    dependency-scan:
+        uses: ./.github/workflows/dependency_check.yml
+
+    dockerfile-scan:
+        uses: ./.github/workflows/docker_scan.yml
+        secrets: inherit
