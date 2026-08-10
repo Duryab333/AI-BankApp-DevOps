@@ -1,7 +1,10 @@
 name: DevSecOps pipline
 
 on:
-    workflow_dispatch:
+    push:
+        branches:
+            [main] 
+    #workflow_dispatch:
 
 jobs:
     # CI
@@ -10,6 +13,9 @@ jobs:
     secret-scan:
         uses: ./.github/workflows/secrete_scan.yml
         secrets: inherit
+        permissions:
+            contents: read
+            security-events: write 
 
     dependency-scan:
         uses: ./.github/workflows/dependency_check.yml
