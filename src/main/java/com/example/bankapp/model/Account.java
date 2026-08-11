@@ -33,8 +33,7 @@ public class Account implements UserDetails {
     //@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //private transient List<Transaction> transactions = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "account_id")
+    @OneToMany(mappedBy = "account")
     private List<Transaction> transactions;
 
 

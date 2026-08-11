@@ -23,10 +23,10 @@ public class Transaction {
 
     @Column(nullable = false)
     private LocalDateTime timestamp;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    
+    @ManyToOne
     @JoinColumn(name = "account_id")
-    private transient  Account account;
+    private Account account;
 
     public Transaction() {
     }

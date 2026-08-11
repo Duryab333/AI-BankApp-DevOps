@@ -53,6 +53,9 @@ jobs:
             
             #- name: Build with Maven
             #  run: mvn -B verify spotbugs:spotbugs
+
+            - name: Build (skip tests for now)
+              run: mvn -B clean package -DskipTests
             
             - name: Build + SpotBugs + Tests
               run:  mvn -B clean verify # mvn -B clean verify spotbugs:spotbugs spotbugs:check
