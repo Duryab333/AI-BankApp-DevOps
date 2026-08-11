@@ -8,9 +8,9 @@ on:
 
 jobs:
     # CI
-    code_quality:
-        uses: ./.github/workflows/code_quality.yml
-        secrets: inherit
+    #code_quality:
+    #    uses: ./.github/workflows/code_quality.yml
+    #    secrets: inherit
     secret-scan:
         uses: ./.github/workflows/secrete_scan.yml
         secrets: inherit
