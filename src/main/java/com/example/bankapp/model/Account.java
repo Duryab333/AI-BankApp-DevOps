@@ -45,7 +45,7 @@ public class Account implements UserDetails {
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
         this.transactions = new ArrayList<>();
-}
+        }
 
 
     public Account() {
