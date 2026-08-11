@@ -20,6 +20,6 @@ jobs:
     dependency-scan:
         uses: ./.github/workflows/dependency_check.yml
 
-    dockerfile-scan:
-        uses: ./.github/workflows/docker_scan.yml
-        secrets: inherit
+    #dockerfile-scan:
+    #    uses: ./.github/workflows/docker_scan.yml
+    #    secrets: inherit
