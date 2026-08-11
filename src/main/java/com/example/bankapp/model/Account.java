@@ -34,7 +34,8 @@ public class Account implements UserDetails {
     //private transient List<Transaction> transactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "account")
-    private List<Transaction> transactions;
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private  List<Transaction> transactions;
 
 
     public Account() {
