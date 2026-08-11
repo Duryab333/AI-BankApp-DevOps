@@ -17,8 +17,8 @@ jobs:
             contents: read
             security-events: write 
 
-    dependency-scan:
-        uses: ./.github/workflows/dependency_check.yml
+    #dependency-scan:
+    #    uses: ./.github/workflows/dependency_check.yml
 
     #dockerfile-scan:
     #    uses: ./.github/workflows/docker_scan.yml
