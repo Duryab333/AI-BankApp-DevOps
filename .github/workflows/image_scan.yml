@@ -14,6 +14,14 @@ jobs:
                 username: ${{vars.DOCKERHUB_USERNAME}}
                 password: ${{secrets.DOCKERHUB_TOKEN  }}
 
+
+            - name: Cache Trivy DB
+              uses: actions/cache@v6
+              with:
+                path: ~/.cache/trivy
+                key: trivy-db-${{ runner.os}}
+                restore-keys: trivy-db-
+
             - name: Run Trivy
               uses: aquasecurity/trivy-action@v0.36.0
               with:
