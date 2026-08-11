@@ -53,20 +53,20 @@ jobs:
       - name: Full Build + SpotBugs + Tests
         run: mvn -B clean verify
 
-      #- name: SonarQube Scan (Maven)
-      #  env:
-      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #  run: |
-      #    mvn -B sonar:sonar \
-      #      -Dsonar.projectKey=my-java-app \
-      #      -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-      #      -Dsonar.login=${SONAR_TOKEN}
-
-      - name: SonarQube Scan (GitHub Action)
-        uses: sonarsource/sonarqube-scan-action@master
+      - name: SonarQube Scan (Maven)
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          mvn -B sonar:sonar \
+            -Dsonar.projectKey=my-java-app \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${SONAR_TOKEN}
+
+      #- name: SonarQube Scan (GitHub Action)
+      #  uses: sonarsource/sonarqube-scan-action@master
+      #  env:
+      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - name: SonarQube Quality Gate
         id: quality-gate
