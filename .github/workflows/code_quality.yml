@@ -20,7 +20,8 @@ jobs:
                 --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -pTest@123"
                 --health-interval=10s
                 --health-timeout=5s
-                --health-retries=10
+                --health-retries=20
+                --health-start-period=60s
 
 
         steps:
