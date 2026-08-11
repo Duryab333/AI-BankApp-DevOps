@@ -59,6 +59,7 @@ jobs:
         run: |
           mvn -B sonar:sonar \
            -Dsonar.projectKey=bankapp \
+           -Dsonar.organization=my-org \
            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
            -Dsonar.login=${SONAR_TOKEN}
           
@@ -70,7 +71,7 @@ jobs:
       #    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       #  with:
       #    args: |
-      #      -Dsonar.projectKey=my-java-app
+      #      -Dsonar.projectKey=bankapp
       #      -Dsonar.organization=my-org
 
       - name: SonarQube Quality Gate
