@@ -8,24 +8,26 @@ on:
 
 jobs:
     # CI
-    #code_quality:
-    #    uses: ./.github/workflows/code_quality.yml
-    #    secrets: inherit
-    #secret-scan:
-    #    uses: ./.github/workflows/secrete_scan.yml
-    #    secrets: inherit
-    #    permissions:
-    #        contents: read
-    #        security-events: write 
-
-    dependency-scan:
-        uses: ./.github/workflows/dependency_check.yml
+    code_quality:
+        uses: ./.github/workflows/code_quality.yml
         secrets: inherit
+    secret-scan:
+        uses: ./.github/workflows/secrete_scan.yml
+        secrets: inherit
+        permissions:
+            contents: read
+            security-events: write 
 
-    #dockerfile-scan:
-    #    uses: ./.github/workflows/docker_scan.yml
+    #dependency-scan:
+    #    uses: ./.github/workflows/dependency_check.yml
     #    secrets: inherit
+
+    dockerfile-scan:
+        needs: [code_quality,secret-scan] # ,  dependency-scan]
+        uses: ./.github/workflows/docker_scan.yml
+        secrets: inherit
     
-    #build-and-push:
-    #    uses: ./.github/workflows/build_and_push.yml
-    #    secrets: inherit
+    build-and-push:
+        needs: [dockerfile-scan]
+        uses: ./.github/workflows/build_and_push.yml
+        secrets: inherit

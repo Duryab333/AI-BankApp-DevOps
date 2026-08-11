@@ -9,11 +9,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
             - name: docker login
               uses: docker/login-action@v4
               with:
-                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                username: ${{ vars.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: Docker image build
               uses: docker/build-push-action@v7
@@ -21,6 +21,6 @@ jobs:
                 context: .
                 push: true
                 tags: |
-                    ${{secrets.DOCKERHUB_USERNAME}}/github-actions-app:latest
+                    ${{vars.DOCKERHUB_USERNAME}}/github-actions-app:latest
                     ${{secrets.DOCKERHUB_USERNAME}}/github-actions-app:${{ github.ref_name}}
                     ${{secrets.DOCKERHUB_USERNAME}}/github-actions-app:${{ github.sha }}
