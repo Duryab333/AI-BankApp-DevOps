@@ -21,6 +21,14 @@ jobs:
             - name: Build project with Maven
               run: ./mvnw -B clean install -DskipTests
 
+            - name: Cache Dependeny-check DB
+              uses: actions/cache@v6
+              with:
+                path:  ~/.m2/repository/org/owasp/dependency-check-data
+                key: dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
+                restore-keys: |
+                   dependency-check-${{ runner.os }}-
+
 
             - name:  OWASP Dependency Check
               env:
