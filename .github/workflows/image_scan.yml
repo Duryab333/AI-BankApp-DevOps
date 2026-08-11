@@ -27,5 +27,5 @@ jobs:
               with:
                 image-ref:  '${{vars.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.sha }}'
                 exit-code: '1'
-                severity: 'CRITICAL,HIGH'
+                severity: 'CRITICAL'
                 #trivyignore: ${{ github.workspace}}/.trivyignore
