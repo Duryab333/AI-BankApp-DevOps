@@ -30,6 +30,7 @@ public class Account implements UserDetails {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 
+
     public Account() {
     }
 
@@ -38,6 +39,7 @@ public class Account implements UserDetails {
         this.password = password;
         this.balance = BigDecimal.ZERO;
     }
+
 
     // Getters and setters
 
@@ -76,12 +78,13 @@ public class Account implements UserDetails {
     }
 
     public List<Transaction> getTransactions() {
-        return transactions;
+        return new ArrayList<>(transactions);   // defensive copy
     }
 
     public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+        this.transactions = new ArrayList<>(transactions);   // defensive copy
     }
+
 
     // UserDetails implementation
 
