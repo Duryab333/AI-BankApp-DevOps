@@ -52,7 +52,7 @@ jobs:
                 format: 'HTML'
                 args: |
                   --failOnCVSS 7
-                  -- disableCentral
+
 
               
             - name: Upload Dependency-Check Report
