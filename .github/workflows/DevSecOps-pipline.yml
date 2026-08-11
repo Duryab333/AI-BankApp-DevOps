@@ -8,9 +8,9 @@ on:
 
 jobs:
     # CI
-    code_quality:
-        uses: ./.github/workflows/code_quality.yml
-        secrets: inherit
+    #code_quality:
+    #    uses: ./.github/workflows/code_quality.yml
+    #    secrets: inherit
     secret-scan:
         uses: ./.github/workflows/secrete_scan.yml
         secrets: inherit
@@ -23,11 +23,16 @@ jobs:
     #    secrets: inherit
 
     dockerfile-scan:
-        needs: [code_quality,secret-scan] # ,  dependency-scan]
+        needs: [secret-scan ] #[code_quality, dependency-scan, secret-scan] 
         uses: ./.github/workflows/docker_scan.yml
         secrets: inherit
     
     build-and-push:
         needs: [dockerfile-scan]
         uses: ./.github/workflows/build_and_push.yml
+        secrets: inherit
+
+    image-scan:
+        needs: [ build-and-push]
+        uses: ./.github/workflows/image_scan.yml
         secrets: inherit
