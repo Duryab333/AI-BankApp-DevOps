@@ -25,7 +25,9 @@ jobs:
                 curl --http1.1 -v --max-time 30 \
                   "https://search.maven.org/solrsearch/select?q=g:%22org.springframework.boot%22&rows=1&wt=json"
 
-                            
+            - name: Dependency-Check version
+              run: |
+                docker run --rm owasp/dependency-check:latest --version
             - name: Test Maven Repository
               run: |
                 curl -I --max-time 30 \
