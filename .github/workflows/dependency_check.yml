@@ -30,3 +30,13 @@ jobs:
                 project: 'AI-BankApp'
                 path: '.'
                 format: 'HTML'
+                args: |
+                  --failOnCVSS 7
+
+              
+            - name: Upload Dependency-Check Report
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                name: dependency-check-report
+                path: reports/
