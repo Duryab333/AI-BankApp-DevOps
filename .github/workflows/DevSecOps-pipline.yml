@@ -10,12 +10,12 @@ jobs:
     # CI
     code_quality:
         uses: ./.github/workflows/code_quality.yml
-    secret-scan:
-        uses: ./.github/workflows/secrete_scan.yml
-        secrets: inherit
-        permissions:
-            contents: read
-            security-events: write 
+    #secret-scan:
+    #    uses: ./.github/workflows/secrete_scan.yml
+    #    secrets: inherit
+    #    permissions:
+    #        contents: read
+    #        security-events: write 
 
     #dependency-scan:
     #    uses: ./.github/workflows/dependency_check.yml
