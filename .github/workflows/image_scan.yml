@@ -20,13 +20,13 @@ jobs:
               with:
                 path: ~/.cache/trivy
                 key: trivy-db-${{ runner.os}}
-                restore-keys: trivy-db-
+                restore-keys: |
+                  trivy-db-
 
             - name: Run Trivy
               uses: aquasecurity/trivy-action@v0.36.0
               with:
-                image-ref:  '${{vars.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.sha }}'
+                image-ref: '${{ vars.DOCKERHUB_USERNAME }}/ai-bank-app:${{ github.sha }}'
                 format: 'table'
                 exit-code: '1'
-                severity: 'CRITICAL'
-                #trivyignore: ${{ github.workspace}}/.trivyignore
+                severity: 'CRITICAL,HIGH'
