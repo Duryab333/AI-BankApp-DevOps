@@ -58,9 +58,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B sonar:sonar \
-            -Dsonar.projectKey=bankapp \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${SONAR_TOKEN}
+           -Dsonar.projectKey=bankapp \
+           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+           -Dsonar.login=${SONAR_TOKEN}
+          
 
       #- name: SonarQube Scan (GitHub Action)
       #  uses: sonarsource/sonarqube-scan-action@master
@@ -68,9 +69,9 @@ jobs:
       #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       #  with:
-          args: |
-            -Dsonar.projectKey=my-java-app
-            -Dsonar.organization=my-org
+      #    args: |
+      #      -Dsonar.projectKey=my-java-app
+      #      -Dsonar.organization=my-org
 
       - name: SonarQube Quality Gate
         id: quality-gate
