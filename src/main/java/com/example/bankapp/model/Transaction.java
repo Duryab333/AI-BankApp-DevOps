@@ -23,14 +23,14 @@ public class Transaction {
 
     @Column(nullable = false)
     private LocalDateTime timestamp;
-    
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
     public Transaction() {
     }
-
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public Transaction(BigDecimal amount, String type, LocalDateTime timestamp, Account account) {
         this.amount = amount;
         this.type = type;
