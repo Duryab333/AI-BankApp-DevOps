@@ -19,8 +19,8 @@ jobs:
               options: |
                 --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -pTest@123"
                 --health-interval=10s
-                --health-timeout=5s
-                --health-retries=20
+                --health-timeout=25s
+                --health-retries=2
                 --health-start-period=60s
 
 
@@ -33,6 +33,11 @@ jobs:
               with:
                 distribution: 'temurin'
                 java-version: '21'
+            - name: Debug MySQL
+              run: |
+                docker ps
+                docker inspect $(docker ps -q --filter ancestor=mysql:8.0)
+                docker logs $(docker ps -q --filter ancestor=mysql:8.0)
     
 
             - name: Set up Maven
