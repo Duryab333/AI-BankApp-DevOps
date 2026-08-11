@@ -31,7 +31,7 @@ services:
     
   
   bankapp:
-    image: duryabtariq/ai-bankapp
+    image: ${DOCKER_USERNAME}/ai-bank-app:${DOCKER_TAG}
     container_name: bankapp
     ports:
       - "8080:8080"
