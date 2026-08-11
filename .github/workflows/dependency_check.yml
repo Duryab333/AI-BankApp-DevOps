@@ -21,6 +21,11 @@ jobs:
             - name: Build project with Maven
               run: ./mvnw -B clean install -DskipTests
 
+            - name: Test Maven Central connectivity
+              run: |
+                curl -I --max-time 30 https://search.maven.org
+                curl -I --max-time 30 https://repo1.maven.org/maven2/
+
             - name: Cache OWASP Dependency-Check
               uses: actions/cache@v4
               with:
