@@ -30,3 +30,4 @@ jobs:
                 format: 'table'
                 exit-code: '1'
                 severity: 'CRITICAL'
+                cache-dir: /home/runner/work/AI-BankApp-DevOps/AI-BankApp-DevOps/.cache/trivy
