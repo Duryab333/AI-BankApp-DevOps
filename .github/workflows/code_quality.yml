@@ -38,11 +38,20 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - name: Cache Maven
+        uses: actions/cache@v6
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
+
 
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.16
+          cache-dir:  ~/.m2/repository
 
       - name: Maven Validate (enforcer rules)
         run: mvn -B validate

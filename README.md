@@ -15,7 +15,8 @@ A modern banking application with an integrated AI chatbot, deployed on AWS EKS 
 
 ---
 
-![Dashboard](screenshots/dashboard.png)
+
+![Dashboard](image.png)
 
 ![AI Chatbot](screenshots/ai-chatbot.png)
 
