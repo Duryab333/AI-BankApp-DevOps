@@ -27,7 +27,7 @@ jobs:
                 curl -I --max-time 30 https://repo1.maven.org/maven2/
 
             - name: Cache OWASP Dependency-Check
-              uses: actions/cache@v4
+              uses: actions/cache@v6
               with:
                 path: ~/.m2/repository/org/owasp/dependency-check-data
                 key: dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
