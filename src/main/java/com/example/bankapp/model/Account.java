@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 @Entity
 @Table(name = "accounts")
 public class Account implements UserDetails {
@@ -27,8 +28,14 @@ public class Account implements UserDetails {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> transactions = new ArrayList<>();
+
+
+    //@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //private transient List<Transaction> transactions = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "account_id")
+    private List<Transaction> transactions;
 
 
     public Account() {

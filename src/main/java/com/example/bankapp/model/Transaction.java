@@ -26,7 +26,7 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    private   Account account;
+    private transient  Account account;
 
     public Transaction() {
     }
