@@ -20,44 +20,21 @@ jobs:
 
             - name: Build project with Maven
               run: ./mvnw -B clean install -DskipTests
-            - name: Test Maven Central Search API HTTP/1.1
-              run: |
-                curl --http1.1 -v --max-time 30 \
-                  "https://search.maven.org/solrsearch/select?q=g:%22org.springframework.boot%22&rows=1&wt=json"
-
-            - name: Dependency-Check version
-              run: |
-                docker run --rm owasp/dependency-check:latest --version
-            - name: Test Maven Repository
-              run: |
-                curl -I --max-time 30 \
-                  https://repo1.maven.org/maven2/org/springframework/boot/spring-boot/
-                  
-            - name: Cache OWASP Dependency-Check
-              uses: actions/cache@v6
-              with:
-                path: ~/.m2/repository/org/owasp/dependency-check-data
-                key: dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
-                restore-keys: |
-                  dependency-check-${{ runner.os }}-
-            
-            - name: OWASP Dependency-Check
-              uses: dependency-check/Dependency-Check_Action@1.1.0
-              id: depcheck
-              env:
-                JAVA_HOME: /opt/jdk
-              with:
-                project: 'AI-BankApp'
-                path: '.'
-                format: 'HTML'
-                args: |
-                  --failOnCVSS 7
-
 
               
-            - name: Upload Dependency-Check Report
-              uses: actions/upload-artifact@v4
-              if: always()
+            - name: Depcheck
+              uses: dependency-check/Dependency-Check_Action@main
+              id: Depcheck
               with:
-                name: dependency-check-report
-                path: reports/
+                project: 'test'
+                path: '.'
+                format: 'HTML'
+                out: 'reports' # this is the default, no need to specify unless you wish to override it
+                args: >
+                  --failOnCVSS 7
+                  --enableRetired
+            - name: Upload Test results
+              uses: actions/upload-artifact@master
+              with:
+                name: Depcheck report
+                path: ${{github.workspace}}/reports
