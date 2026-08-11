@@ -6,3 +6,43 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        env:
+            DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+            DOCKER_TAG: ${{github.event.workflow_run.head_sha}}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
+
+            - name: SSH to prod server
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.EC2_USERNAME }}
+                password: ${{ secrets.EC2_PRIVATE_KEY }}
+                script: |
+                    echo "Starting Deployment"
+                    mkdir -p devops
+
+            - name: Copy Docker Compose file via SSH
+              uses: appleboy/scp-action@v1 
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.EC2_USERNAME }}
+                password: ${{ secrets.EC2_PRIVATE_KEY }}
+                source: docker-compose.yml
+                target: ~/devops
+
+            - name: SSH to prod Server & Run app
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.EC2_USERNAME }}
+                password: ${{ secrets.EC2_PRIVATE_KEY }}
+                script: |
+                  echo "Runing APP"
+                  export DOCKER_TAG=${{github.sha}}
+                  export DOCKER_USERNAME=${{vars.DOCKERHUB_USERNAME}}
+                  echo ${{secrets.DOCKERHUB_TOKEN  }} | docker login --username ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
+                  cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
+
