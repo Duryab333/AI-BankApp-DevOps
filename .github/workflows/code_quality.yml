@@ -53,14 +53,7 @@ jobs:
       - name: Full Build + SpotBugs + Tests
         run: mvn -B clean verify
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: http://localhost:9000/
-        with:
-          java-version: 21
-
+     
           
 
       #- name: SonarQube Scan (GitHub Action)
@@ -72,6 +65,16 @@ jobs:
       #    args: |
       #      -Dsonar.projectKey=bankapp
       #      -Dsonar.organization=my-org
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn -B sonar:sonar \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.organization=${{ secrets.SONAR_organization_KEY}} \
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY}} \
+            -Dsonar.token=${SONAR_TOKEN}
+
 
       - name: SonarQube Quality Gate
         id: quality-gate
