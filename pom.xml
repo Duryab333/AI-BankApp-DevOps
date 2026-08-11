@@ -32,6 +32,7 @@
 		<tomcat.version>10.1.52</tomcat.version>
 		<!-- Fix GHSA-72hv-8253-57qq: Upgrade Jackson to 2.18.6 -->
 		<jackson-bom.version>2.18.6</jackson-bom.version>
+		<thymeleaf.version>3.1.5.RELEASE</thymeleaf.version>
 	</properties>
 	<dependencies>
 		<dependency>

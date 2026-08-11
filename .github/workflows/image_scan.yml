@@ -18,7 +18,7 @@ jobs:
             - name: Cache Trivy DB
               uses: actions/cache@v6
               with:
-                path: ~/.cache/trivy
+                path: /home/runner/work/AI-BankApp-DevOps/AI-BankApp-DevOps/.cache/trivy
                 key: trivy-db-${{ runner.os}}
                 restore-keys: |
                   trivy-db-
