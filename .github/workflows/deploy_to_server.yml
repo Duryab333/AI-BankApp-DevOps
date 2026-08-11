@@ -19,7 +19,7 @@ jobs:
               with:
                 host: ${{ secrets.EC2_HOST }}
                 username: ${{ secrets.EC2_USERNAME }}
-                password: ${{ secrets.EC2_PRIVATE_KEY }}
+                key: ${{ secrets.EC2_PRIVATE_KEY }}
                 script: |
                     echo "Starting Deployment"
                     mkdir -p devops
@@ -29,7 +29,7 @@ jobs:
               with:
                 host: ${{ secrets.EC2_HOST }}
                 username: ${{ secrets.EC2_USERNAME }}
-                password: ${{ secrets.EC2_PRIVATE_KEY }}
+                key: ${{ secrets.EC2_PRIVATE_KEY }}
                 source: docker-compose.yml
                 target: ~/devops
 
@@ -38,7 +38,7 @@ jobs:
               with:
                 host: ${{ secrets.EC2_HOST }}
                 username: ${{ secrets.EC2_USERNAME }}
-                password: ${{ secrets.EC2_PRIVATE_KEY }}
+                key: ${{ secrets.EC2_PRIVATE_KEY }}
                 script: |
                   echo "Runing APP"
                   export DOCKER_TAG=${{github.sha}}
