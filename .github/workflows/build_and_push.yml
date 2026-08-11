@@ -22,5 +22,5 @@ jobs:
                 push: true
                 tags: |
                     ${{vars.DOCKERHUB_USERNAME}}/ai-bank-app:latest
-                    ${{secrets.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.ref_name}}
-                    ${{secrets.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.sha }}
+                    ${{vars.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.ref_name}}
+                    ${{vars.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.sha }}
