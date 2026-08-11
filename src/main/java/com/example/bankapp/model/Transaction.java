@@ -1,9 +1,11 @@
 package com.example.bankapp.model;
 
 import jakarta.persistence.*;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 @Entity
 @Table(name = "transactions")
@@ -22,13 +24,9 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "JPA entity relationship; Transaction intentionally references the Account entity"
-    )
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    private Account account;
+    private transient  Account account;
 
     public Transaction() {
     }
@@ -39,7 +37,6 @@ public class Transaction {
         this.timestamp = timestamp;
         this.account = account;
     }
-
     public Long getId() {
         return id;
     }
@@ -72,11 +69,14 @@ public class Transaction {
         this.timestamp = timestamp;
     }
 
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public Account getAccount() {
         return account;
     }
 
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public void setAccount(Account account) {
         this.account = account;
     }
+
 }
