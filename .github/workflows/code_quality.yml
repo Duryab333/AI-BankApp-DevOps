@@ -53,19 +53,7 @@ jobs:
       - name: Full Build + SpotBugs + Tests
         run: mvn -B clean verify
 
-     
-          
-
-      #- name: SonarQube Scan (GitHub Action)
-      #  uses: sonarsource/sonarqube-scan-action@master
-      #  env:
-      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      #  with:
-      #    args: |
-      #      -Dsonar.projectKey=bankapp
-      #      -Dsonar.organization=my-org
-      - name: SonarCloud Scan
+      - name:  SonarCloud Scan + Quality Gate
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
@@ -74,12 +62,4 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_organization_KEY}} \
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY}} \
             -Dsonar.token=${SONAR_TOKEN}
-
-
-      - name: SonarQube Quality Gate
-        id: quality-gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        with:
-          pollingTimeoutSec: 600
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            -Dsonar.qualitygate.wait=true
