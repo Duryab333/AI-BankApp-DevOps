@@ -26,7 +26,7 @@ jobs:
               uses: aquasecurity/trivy-action@v0.36.0
               with:
                 image-ref:  '${{vars.DOCKERHUB_USERNAME}}/ai-bank-app:${{ github.sha }}'
-                formate: 'table' 
+                format: 'table'
                 exit-code: '1'
                 severity: 'CRITICAL'
                 #trivyignore: ${{ github.workspace}}/.trivyignore
