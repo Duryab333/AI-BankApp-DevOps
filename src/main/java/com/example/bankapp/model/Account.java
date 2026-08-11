@@ -37,9 +37,15 @@ public class Account implements UserDetails {
     //private  List<Transaction> transactions;
     //@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     //private transient List<Transaction> transactions;
+    private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "account")
     private transient List<Transaction> transactions = new ArrayList<>();
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.transactions = new ArrayList<>();
+}
 
 
     public Account() {
