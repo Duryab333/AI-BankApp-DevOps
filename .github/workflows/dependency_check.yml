@@ -20,12 +20,17 @@ jobs:
 
             - name: Build project with Maven
               run: ./mvnw -B clean install -DskipTests
-
-            - name: Test Maven Central Search API
+            - name: Test Maven Central Search API HTTP/1.1
               run: |
-                curl -v --max-time 30 \
+                curl --http1.1 -v --max-time 30 \
                   "https://search.maven.org/solrsearch/select?q=g:%22org.springframework.boot%22&rows=1&wt=json"
 
+                            
+            - name: Test Maven Repository
+              run: |
+                curl -I --max-time 30 \
+                  https://repo1.maven.org/maven2/org/springframework/boot/spring-boot/
+                  
             - name: Cache OWASP Dependency-Check
               uses: actions/cache@v6
               with:
