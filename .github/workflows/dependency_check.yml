@@ -20,6 +20,14 @@ jobs:
 
             - name: Build project with Maven
               run: ./mvnw -B clean install -DskipTests
+
+            - name: Cache OWASP Dependency-Check
+              uses: actions/cache@v4
+              with:
+                path: ~/.m2/repository/org/owasp/dependency-check-data
+                key: dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
+                restore-keys: |
+                  dependency-check-${{ runner.os }}-
             
             - name: OWASP Dependency-Check
               uses: dependency-check/Dependency-Check_Action@1.1.0
@@ -32,6 +40,7 @@ jobs:
                 format: 'HTML'
                 args: |
                   --failOnCVSS 7
+                  -- disableCentral
 
               
             - name: Upload Dependency-Check Report
