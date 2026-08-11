@@ -8,9 +8,9 @@ on:
 
 jobs:
     # CI
-    #code_quality:
-    #    uses: ./.github/workflows/code_quality.yml
-    #    secrets: inherit
+    code_quality:
+        uses: ./.github/workflows/code_quality.yml
+        secrets: inherit
     secret-scan:
         uses: ./.github/workflows/secrete_scan.yml
         secrets: inherit
@@ -18,12 +18,12 @@ jobs:
             contents: read
             security-events: write 
 
-    #dependency-scan:
-    #    uses: ./.github/workflows/dependency_check.yml
-    #    secrets: inherit
+    dependency-scan:
+        uses: ./.github/workflows/dependency_check.yml
+        secrets: inherit
 
     dockerfile-scan:
-        needs: [secret-scan ] #[code_quality, dependency-scan, secret-scan] 
+        needs: [code_quality, dependency-scan, secret-scan] 
         uses: ./.github/workflows/docker_scan.yml
         secrets: inherit
     
