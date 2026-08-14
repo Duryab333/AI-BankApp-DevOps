@@ -42,7 +42,7 @@ jobs:
                 -Dnvd.api.key=${NVD_API_KEY} \
                 -Ddata.directory=$HOME/.m2/repository/org/owasp/dependency-check-data \
                 -DfailBuildOnCVSS=7 \
-                -Dformat=ALL \ #HTML,JSON,SARIF \
+                -Dformat=ALL \
                 -DprettyPrint=true
 
               
