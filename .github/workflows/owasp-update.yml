@@ -2,7 +2,7 @@ name: OWASP Dependency-Check - Update  NVD
 
 on:
     schedule:
-        - cron: '* * * * *'
+        - cron: '0 2 3 * *'
     workflow_dispatch:
     
 permissions:
