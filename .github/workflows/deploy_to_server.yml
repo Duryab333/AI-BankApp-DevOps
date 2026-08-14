@@ -40,7 +40,7 @@ jobs:
                 username: ${{ secrets.EC2_USERNAME }}
                 key: ${{ secrets.EC2_PRIVATE_KEY }}
                 script: |
-                  echo "Runing APP"
+                  echo "Runing APP" 
                   export DOCKER_TAG=${{github.sha}}
                   export DOCKER_USERNAME=${{vars.DOCKERHUB_USERNAME}}
                   echo ${{secrets.DOCKERHUB_TOKEN  }} | docker login --username ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
