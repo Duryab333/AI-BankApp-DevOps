@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    <suppress>
+        <notes>
+            CVE-2026-66299 only affects the Tomcat WebSocket chat example.
+            Spring Boot applications do not deploy the examples webapp, so this is not applicable.
+        </notes>
+        <cve>CVE-2026-66299</cve>
+    </suppress>
+</suppressions>

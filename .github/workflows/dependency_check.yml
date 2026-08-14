@@ -44,6 +44,7 @@ jobs:
                 -DfailBuildOnCVSS=7 \
                 -Dformat=ALL \
                 -DprettyPrint=true
+                -DsuppressionFile=dependency-check-suppressions.xml
 
               
                 #mvn dependency-check:check \
