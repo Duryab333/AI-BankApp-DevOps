@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Wait for MySQL (deterministic readiness)
         run: |
@@ -38,6 +40,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: maven 
+
       - name: Cache Maven
         uses: actions/cache@v6
         with:
@@ -48,7 +52,7 @@ jobs:
 
 
       - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
+        uses: stCarolas/setup-maven@v6
         with:
           maven-version: 3.9.16
           cache-dir:  ~/.m2/repository
@@ -56,8 +60,8 @@ jobs:
       - name: Maven Validate (enforcer rules)
         run: mvn -B validate
 
-      - name: Compile & Package (no tests)
-        run: mvn -B clean package -DskipTests
+      #- name: Compile & Package (no tests)
+      #  run: mvn -B clean package -DskipTests
 
       - name: Full Build + SpotBugs + Tests
         run: mvn -B clean verify
