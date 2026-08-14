@@ -1,0 +1,49 @@
+name: OWASP Dependency-Check - Update  NVD 
+
+on:
+    schedule:
+        - cron: '* * * * *'
+    workflow_dispatch:
+    
+permissions:
+    contents: read
+jobs:
+    update-nvd:
+        name: Update NVD Database
+        runs-on: ubuntu-latest
+        timeout-minutes: 60
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+            
+            - name: Setup JDK 17
+              uses: actions/setup-java@v4
+              with:
+                java-version: '17'
+                distribution: 'temurin'
+                cache: maven
+
+            - name: get week number (for cache key)
+              id: week
+              run: echo "week=$(date -u +%Y-%U)" >> $GITHUB_OUTPUT 
+            
+            - name: Cache OWASP Dependency-check data
+              uses: actions/cache@v4
+              with:
+                path: ~/.m2/repository/org/owasp/dependency-check-data
+                key: owasp-dc-${{ runner.os }}-${{ steps.week.outputs.week }}
+                restore-keys: |
+                    owasp-dc-${{ runner.os }}-
+
+            - name: Update NVD data only
+              env: 
+                NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+              run: |
+                mvn -B -ntp org.owasp:dependency-check-maven:update-only \
+                -Dnvd.api.key=${NVD_API_KEY} \
+                -Ddata.directory=$HOME/.m2/repository/org/owasp/dependency-check-data
+
+            - name: Show cache size (for observability)
+              run: |
+                du -sh ~/.m2/repository/org/owasp/dependency-check-data || true

@@ -20,23 +20,34 @@ jobs:
 
             - name: Build project with Maven
               run: ./mvnw -B clean install -DskipTests
+            
+            - name: Get week number
+              id: week
+              run: echo "week=$(date -u +%Y-%U)" >> $GITHUB_OUTPUT
 
-            - name: Cache Dependeny-check DB
+            - name: Cache Dependency-check DB
               uses: actions/cache@v6
               with:
                 path:  ~/.m2/repository/org/owasp/dependency-check-data
-                key: dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
+                key: owasp-dc-${{ runner.os }}-${{ steps.week.outputs.week }} # dependency-check-${{ runner.os }}-${{ hashFiles('pom.xml') }}
                 restore-keys: |
-                   dependency-check-${{ runner.os }}-
+                  owasp-dc-${{ runner.os }}- # dependency-check-${{ runner.os }}-
 
 
             - name:  OWASP Dependency Check
               env:
                 NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
               run: |
-                mvn dependency-check:check \
+                mvn -B -ntp org.owasp:dependency-check-maven:check \
                 -Dnvd.api.key=${NVD_API_KEY} \
                 -Ddata.directory=$HOME/.m2/repository/org/owasp/dependency-check-data \
-                -DcveUrlMaxLength=1000
+                -DfailBuildOnCVSS=7 \
+                -Dformat=HTML,JSON,SARIF \
+                -DprettyPrint=true
 
- 
+              
+                #mvn dependency-check:check \
+                #-Dnvd.api.key=${NVD_API_KEY} \
+                #-Ddata.directory=$HOME/.m2/repository/org/owasp/dependency-check-data \
+                #-DcveUrlMaxLength=1000
+
