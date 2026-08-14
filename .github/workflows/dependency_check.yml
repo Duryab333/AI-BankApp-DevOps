@@ -43,12 +43,7 @@ jobs:
                 -Ddata.directory=$HOME/.m2/repository/org/owasp/dependency-check-data \
                 -DfailBuildOnCVSS=7 \
                 -Dformat=ALL \
-                -DprettyPrint=true
+                -DprettyPrint=true \
                 -DsuppressionFile=dependency-check-suppressions.xml
 
-              
-                #mvn dependency-check:check \
-                #-Dnvd.api.key=${NVD_API_KEY} \
-                #-Ddata.directory=$HOME/.m2/repository/org/owasp/dependency-check-data \
-                #-DcveUrlMaxLength=1000
 
