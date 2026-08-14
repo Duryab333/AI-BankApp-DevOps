@@ -36,7 +36,7 @@
 		<!-- Fix GHSA-72hv-8253-57qq: Upgrade Jackson to 2.18.6 -->
 		<jackson-bom.version>2.18.9</jackson-bom.version>
 		<thymeleaf.version>3.1.5.RELEASE</thymeleaf.version>
-		<mysql.version>26.7.0</mysql.version>
+		<!-- <mysql.version>26.7.0</mysql.version> -->
 	</properties>
 	<dependencies>
 	<dependency>
