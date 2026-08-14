@@ -56,8 +56,8 @@ jobs:
       - name: Maven Validate (enforcer rules)
         run: mvn -B validate
 
-      - name: Compile & Package (no tests)
-        run: mvn -B clean package -DskipTests
+      #- name: Compile & Package (no tests)
+      #run: mvn -B clean package -DskipTests
 
       - name: Full Build + SpotBugs + Tests
         run: mvn -B clean verify
